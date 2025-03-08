@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Nepal Journey</title>
+    <style>
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1537420327992-d6e192287183?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            opacity: 0.2;
+            z-index: -2;
+            filter: blur(5px);
+        }
+        
+        .cosmic-glow {
+            position: relative;
+        }
+        
+        .cosmic-glow::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 70%);
+            z-index: -1;
+            border-radius: 20px;
+            animation: pulse 3s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.05); }
+        }
+        
+        .mountain-silhouette {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20vh;
+            background-image: url('https://images.unsplash.com/photo-1619266465172-02a857c3556d?fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            opacity: 0.4;
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+            mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        .nepal-flag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 80px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: wavey 5s infinite ease-in-out;
+        }
+        
+        @keyframes wavey {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        .cosmic-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #3ea4f0, #8a2be2);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(62, 164, 240, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .cosmic-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <canvas class="webgl"></canvas>
+    <div class="cosmic-bg"></div>
+    <div class="mountain-silhouette"></div>
+    <div class="floating-elements"></div>
+    
+
+    <div class="location-content">
+        <div class="nepal-flag"></div>
+        <h1>Nepal Journey</h1>
+        
+        <!-- Education Section -->
+        <div class="parallax-section cosmic-glow">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa');">
+                <div class="overlay"></div>
+            </div>
+            <div class="section-content">
+                <div class="stat-card">
+                    <h2>Early Education</h2>
+                    <p>Completed High School Education in Kathmandu</p>
+                    <div class="location-tag">
+                        <span class="icon">📍</span>
+                        <span>Kathmandu, Nepal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Experience -->
+        <div class="experience-section cosmic-glow">
+            <div class="experience-card">
+                <div class="card-content">
+                    <div class="experience-header">
+                        <h2>Verisk Nepal</h2>
+                        <span class="role">Junior Frontend Intern</span>
+                    </div>
+                    <p>Started my professional journey in tech</p>
+                    <div class="tech-stack">
+                        <div class="tech-item">Frontend Development</div>
+                        <div class="tech-item">UI/UX</div>
+                        <div class="tech-item">Web Technologies</div>
+                    </div>
+                </div>
+                <div class="card-image">
+                    <img src="https://cdn.dribbble.com/users/1162077/screenshots/5403918/focus-animation.gif" alt="Developer Animation">
+                </div>
+            </div>
+        </div>
+
+        <!-- Freelance Section -->
+        <div class="freelance-section">
+            <div class="cosmic-cards-container">
+                <div class="cosmic-card cosmic-glow">
+                    <div class="card-icon">
+                        <img src="https://img.freepik.com/free-vector/graphic-designer-concept-illustration_114360-338.jpg?t=st=1741391382~exp=1741394982~hmac=9b272367bd397efdb62879f191e568ff926b6ce6639371e780dd632d8af82de7&w=1480" alt="UI/UX Design">
+                    </div>
+                    <h3>UI/UX Designer</h3>
+                    <p>Freelance designer creating intuitive and beautiful interfaces</p>
+                </div>
+                <div class="cosmic-card cosmic-glow">
+                    <div class="card-icon">
+                        <img src="https://img.freepik.com/free-vector/partners-holding-big-jigsaw-puzzle-pieces_74855-5278.jpg?ga=GA1.1.2084172770.1741391348&semt=ais_hybrid" alt="Frontend Development">
+                    </div>
+                    <h3>Frontend Collaboration</h3>
+                    <p>Worked with senior developers on various projects</p>
+                </div>
+                <div class="cosmic-card cosmic-glow">
+                    <div class="card-icon">
+                        <img src="https://img.freepik.com/free-vector/benchmark-testing-abstract-concept-illustration_335657-3853.jpg?t=st=1741391806~exp=1741395406~hmac=ce118ea2ac01870c6c69ded9812c6d4d5818a1fefedb8a4aa1904169f20c2f6b&w=1480" alt="Performance Optimization">
+                    </div>
+                    <h3>Performance Optimization</h3>
+                    <p>Optimized layouts for faster performance and better user experience</p>
+                </div>
+            </div>
+        </div>
+        
+        <a href="index.html" class="cosmic-button">Return to Cosmic Home</a>
+    </div>
+
+    <script type="module" src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Create floating elements
+        const floatingContainer = document.querySelector('.floating-elements');
+        const floatingImagesUrls = [
+            'https://cdn-icons-png.flaticon.com/512/2942/2942789.png', // Mountains
+            'https://cdn-icons-png.flaticon.com/512/2554/2554882.png', // Code
+            'https://cdn-icons-png.flaticon.com/512/4616/4616687.png', // Design
+            'https://cdn-icons-png.flaticon.com/512/2639/2639914.png', // Web
+            'https://cdn-icons-png.flaticon.com/512/3208/3208500.png'  // Laptop
+        ];
+        
+        const createFloatingElements = () => {
+            for (let i = 0; i < floatingImagesUrls.length; i++) {
+                const element = document.createElement('div');
+                element.classList.add('floating-element');
+                element.style.backgroundImage = `url('${floatingImagesUrls[i]}')`;
+                element.style.top = `${Math.random() * 80 + 10}%`;
+                element.style.left = `${Math.random() * 80 + 10}%`;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                floatingContainer.appendChild(element);
+            }
+        };
+        
+        createFloatingElements();
+
+        // Parallax effect
+        gsap.utils.toArray('.parallax-section').forEach(section => {
+            const bg = section.querySelector('.parallax-bg');
+            gsap.to(bg, {
+                yPercent: 30,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    scrub: true
+                }
+            });
+        });
+
+        // Animate cards
+        gsap.utils.toArray('.cosmic-card').forEach((card, i) => {
+            gsap.from(card, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                delay: i * 0.2,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top center+=100',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+
+        // Experience card animation
+        gsap.from('.experience-card', {
+            opacity: 0,
+            scale: 0.9,
+            duration: 1,
+            scrollTrigger: {
+                trigger: '.experience-card',
+                start: 'top center+=100',
+                toggleActions: 'play none none reverse'
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.171/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171/examples/jsm/"
+          }
+        }
+      </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="public/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Arnis Portfolio</title>
+</head>
+<body>
+  <canvas class="webgl"></canvas>
+  <div class="content-wrapper">
+    <nav>
+      <a href="/">My Portfolio</a>
+      <ul>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+    <h1 class="title">Welcome to my Portfolio</h1>
+    <p class="paragraph">Click on the light trails to explore my experiences at that location.</p>
+      <div class="columns-container">
+        <div class="column about-column">
+          <div class="column-content">
+            <div class="cosmic-header">
+              <div class="star-icon"></div>
+              <h2>About Me</h2>
+            </div>
+            <div class="cosmic-divider"></div>
+            <p>Hey Visitor, my name is <span class="highlight">Arnis KC</span>. I am a full stack developer located in Dallas, Texas. Pursuing a degree
+              in computer science at UT Arlington, currently a student and more. I have over half a decade worth of 
+              experiece designing and developing websites and mobile apps. I excel at designing UI/UX and building web/mobile 
+              applications.</p>
+            <p class="quote">"Born to develop cool applications, forced to build AI integrated systems" -Arnis</p>
+            <div class="interactive-buttons">
+              <a href="texas.html" class="cosmic-button">Explore Journey</a>
+              <button class="cosmic-button toggle-skills">View Skills</button>
+            </div>
+            <div class="skills-container">
+              <div class="skills-galaxy">
+                <div class="skills-particles"></div>
+                <div class="skills-title">
+                  <div class="cosmic-orbit"></div>
+                  <h3>Technical Universe</h3>
+                </div>
+                
+                <div class="skills-grid">
+                  <div class="skill-card universe-card">
+                    <div class="skill-icon">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js">
+                    </div>
+                    <h4>React.js</h4>
+                    <p>MERN Stack</p>
+                    <div class="skill-level-cosmic">
+                      <div class="cosmic-stars" data-width="95%"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="skill-card universe-card">
+                    <div class="skill-icon">
+                      <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="REST API">
+                    </div>
+                    <h4>REST APIs</h4>
+                    <p>API Development</p>
+                    <div class="skill-level-cosmic">
+                      <div class="cosmic-stars" data-width="90%"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="skill-card universe-card">
+                    <div class="skill-icon">
+                      <img src="https://www.svgrepo.com/show/448270/aws-s3.svg" alt="AWS">
+                    </div>
+                    <h4>AWS S3</h4>
+                    <p>Cloud Storage</p>
+                    <div class="skill-level-cosmic">
+                      <div class="cosmic-stars" data-width="85%"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="skill-card universe-card">
+                    <div class="skill-icon">
+                      <img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png" alt="Realtime Database">
+                    </div>
+                    <h4>Realtime DB</h4>
+                    <p>Firebase & MongoDB</p>
+                    <div class="skill-level-cosmic">
+                      <div class="cosmic-stars" data-width="88%"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="skill-card universe-card">
+                    <div class="skill-icon">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL">
+                    </div>
+                    <h4>SQL</h4>
+                    <p>Database Management</p>
+                    <div class="skill-level-cosmic">
+                      <div class="cosmic-stars" data-width="80%"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="skill-card universe-card">
+                    <div class="skill-icon">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#">
+                    </div>
+                    <h4>C#</h4>
+                    <p>Application Development</p>
+                    <div class="skill-level-cosmic">
+                      <div class="cosmic-stars" data-width="75%"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="skill-card universe-card">
+                    <div class="skill-icon">
+                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET">
+                    </div>
+                    <h4>.NET</h4>
+                    <p>Framework</p>
+                    <div class="skill-level-cosmic">
+                      <div class="cosmic-stars" data-width="78%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column hobbies-column">
+          <div class="column-content">
+            <div class="cosmic-header">
+              <div class="planet-icon"></div>
+              <h2>Hobbies</h2>
+            </div>
+            <div class="cosmic-divider"></div>
+            <p>I love challenging myself. In leisure time, I love exploring places, designing things and playing 
+              competitive online games. Since early childhood, I have always loved working on things that were far out of my
+              understanding, whether it was learning how to draw shades on drawings, graphics designing,
+              video editing, 3d modeling, learning how to play chess or making myself code.</p>
+            <div class="hobby-gallery">
+              <div class="hobby-item" data-hobby="design">
+                <div class="hobby-icon design-icon"></div>
+                <span>Design</span>
+              </div>
+              <div class="hobby-item" data-hobby="gaming">
+                <div class="hobby-icon gaming-icon"></div>
+                <span>Gaming</span>
+              </div>
+              <div class="hobby-item" data-hobby="travel">
+                <div class="hobby-icon travel-icon"></div>
+                <span>Travel</span>
+              </div>
+            </div>
+            <div class="hobby-details">
+              <div class="hobby-detail" id="design-detail">
+                <h3>Design Passion</h3>
+                <p>From UI/UX to 3D modeling, I love creating visually stunning experiences.</p>
+              </div>
+              <div class="hobby-detail" id="gaming-detail">
+                <h3>Competitive Gaming</h3>
+                <p>Strategy games and competitive esports fuel my problem-solving skills.</p>
+              </div>
+              <div class="hobby-detail" id="travel-detail">
+                <h3>World Explorer</h3>
+                <p>Discovering new cultures and places inspires my creative process.</p>
+              </div>
+            </div>
+            <a href="nepal.html" class="cosmic-button">Discover More</a>
+          </div>
+        </div>
+      </div>
+  
+    <script type="module" src="main.js"></script>
+    <script>
+      // Create particles for the Technical Universe section
+      document.addEventListener('DOMContentLoaded', function() {
+        const skillsToggle = document.querySelector('.toggle-skills');
+        const skillsContainer = document.querySelector('.skills-container');
+        const particlesContainer = document.querySelector('.skills-particles');
+        const cosmicStars = document.querySelectorAll('.cosmic-stars');
+        
+        console.log('Initial setup:', { 
+          skillsToggle: skillsToggle, 
+          skillsContainer: skillsContainer,
+          cosmicStars: cosmicStars.length
+        });
+        
+        // Set up cosmic stars widths
+        cosmicStars.forEach((star, index) => {
+          // Get the width from the data attribute
+          const width = star.getAttribute('data-width');
+          console.log(`Star ${index} width:`, width);
+          
+          // Set the width as a CSS variable
+          star.style.setProperty('--width', width);
+          star.parentElement.parentElement.style.setProperty('--card-index', index);
+        });
+        
+        // Function to update button text based on visibility state
+        function updateButtonText() {
+          if (skillsContainer && skillsToggle) {
+            const isVisible = skillsContainer.classList.contains('visible');
+            skillsToggle.textContent = isVisible ? 'Hide Skills' : 'View Skills';
+            
+            // Update the active class on the button
+            if (isVisible) {
+              skillsToggle.classList.add('active');
+            } else {
+              skillsToggle.classList.remove('active');
+            }
+            
+            console.log('Button text updated to:', skillsToggle.textContent);
+          }
+        }
+        
+        // Set up a mutation observer to watch for class changes on the skills container
+        if (skillsContainer && skillsToggle) {
+          const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.attributeName === 'class') {
+                console.log('Class changed, updating button text');
+                updateButtonText();
+              }
+            });
+          });
+          
+          observer.observe(skillsContainer, { attributes: true });
+        }
+        
+        // Function to check and fix visibility
+        function ensureVisibility() {
+          if (skillsContainer && skillsContainer.classList.contains('visible')) {
+            // Check if the skill container is properly visible
+            if (getComputedStyle(skillsContainer).visibility !== 'visible') {
+              console.log('Fixing visibility property');
+              skillsContainer.style.visibility = 'visible';
+              skillsContainer.style.opacity = '1';
+              skillsContainer.style.height = 'auto';
+              skillsContainer.style.overflow = 'visible';
+            }
+            
+            // If not showing properly, ensure button is correct
+            if (skillsToggle && skillsToggle.textContent !== 'Hide Skills') {
+              console.log('Fixing button text');
+              skillsToggle.textContent = 'Hide Skills';
+              skillsToggle.classList.add('active');
+            }
+          } else if (skillsContainer && !skillsContainer.classList.contains('visible')) {
+            // If it should be hidden, ensure button text is correct
+            if (skillsToggle && skillsToggle.textContent !== 'View Skills') {
+              console.log('Fixing button text (should be View Skills)');
+              skillsToggle.textContent = 'View Skills';
+              skillsToggle.classList.remove('active');
+            }
+          }
+        }
+        
+        // Add an interval check to ensure the section stays visible when it should
+        let visibilityCheckInterval = setInterval(ensureVisibility, 1000);
+        
+        // Initialize skills container properly
+        if (skillsContainer) {
+          // Make sure it's hidden initially
+          skillsContainer.classList.remove('visible');
+          // Explicitly set all visibility properties
+          skillsContainer.style.visibility = 'hidden';
+          skillsContainer.style.opacity = '0';
+          skillsContainer.style.height = '0';
+          skillsContainer.style.overflow = 'hidden';
+          
+          console.log('Skills container initialized to hidden state');
+          updateButtonText(); // Set initial button text
+        }
+        
+        // Toggle skills visibility
+        if (skillsToggle) {
+          skillsToggle.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent any default button behavior
+            
+            if (skillsContainer) {
+              // Toggle display
+              const isCurrentlyVisible = skillsContainer.classList.contains('visible');
+              console.log('Toggle clicked, current visibility:', isCurrentlyVisible);
+              
+              if (isCurrentlyVisible) {
+                // Currently visible, so hide it
+                console.log('Hiding skills container');
+                skillsContainer.classList.remove('visible');
+                // Directly update button text and class
+                skillsToggle.textContent = 'View Skills';
+                skillsToggle.classList.remove('active');
+                // No need for setTimeout since we're using CSS transitions
+              } else {
+                // Currently hidden, so show it
+                console.log('Showing skills container');
+                
+                // Force a browser repaint to ensure the change takes effect
+                void skillsContainer.offsetHeight;
+                
+                // Add the visible class
+                skillsContainer.classList.add('visible');
+                console.log('Skills container visible class added');
+                // Directly update button text and class
+                skillsToggle.textContent = 'Hide Skills';
+                skillsToggle.classList.add('active');
+                
+                // Create particles when skills are shown
+                if (particlesContainer) {
+                  createParticles();
+                }
+              }
+            }
+          });
+        }
+        
+        // Create cosmic particles
+        function createParticles() {
+          if (!particlesContainer) return;
+          
+          // Clear existing particles
+          particlesContainer.innerHTML = '';
+          
+          // Create new particles
+          for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random position
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.left = `${Math.random() * 100}%`;
+            
+            // Random float animation
+            const floatX = (Math.random() - 0.5) * 50;
+            const floatY = (Math.random() - 0.5) * 50;
+            particle.style.setProperty('--float-x', `${floatX}px`);
+            particle.style.setProperty('--float-y', `${floatY}px`);
+            
+            // Random duration
+            const duration = 3 + Math.random() * 7;
+            particle.style.setProperty('--float-duration', `${duration}s`);
+            
+            // Random type
+            if (Math.random() < 0.3) {
+              particle.classList.add('purple');
+            } else if (Math.random() < 0.6) {
+              particle.classList.add('white');
+            }
+            
+            particlesContainer.appendChild(particle);
+          }
+          console.log('Particles created:', particlesContainer.children.length);
+        }
+      });
+    </script>
+</body>
+</html>

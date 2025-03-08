@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore</title>
+    <link rel="stylesheet" href="public/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3ea4f0;
+            --secondary-color: #8a2be2;
+            --background-color: #000;
+            --text-primary: #f1f1f1;
+            --text-secondary: #a5c2eb;
+            --card-background: rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--background-color);
+            line-height: 1.5;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        canvas.webgl {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            overflow: hidden;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.5); }
+        }
+
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(62, 164, 240, 0.3);
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .home-button:hover {
+            background: rgba(62, 164, 240, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(62, 164, 240, 0.3);
+        }
+
+        .home-icon {
+            margin-right: 0.5rem;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Main Container */
+        .cosmic-explorer {
+            position: relative;
+            width: 100%;
+            z-index: 2;
+            padding: 5rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Explorer Header */
+        .explorer-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .explorer-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .explorer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+            background-size: 200% 100%;
+            animation: gradientFlow 5s infinite linear;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .explorer-description {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Explorer Sections */
+        .explorer-section {
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 4rem;
+        }
+
+        /* Section Card */
+        .cosmic-card {
+            background: var(--card-background);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(62, 164, 240, 0.3);
+            overflow: hidden;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 0 30px rgba(62, 164, 240, 0.2);
+        }
+
+        .cosmic-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.1), transparent 70%);
+            z-index: -1;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .section-header {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-right: 1rem;
+        }
+
+        .section-subtitle {
+            font-weight: 400;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(62, 164, 240, 0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(62, 164, 240, 0.3);
+            border-color: rgba(62, 164, 240, 0.5);
+        }
+
+        .project-image {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        .tech-tag {
+            background: rgba(62, 164, 240, 0.2);
+            border-radius: 20px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+            z-index: 3;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            visibility: visible !important;
+            opacity: 1 !important;
+            height: auto !important;
+        }
+        
+        .skill-item {
+            background: rgba(25, 25, 35, 0.7);
+            border-radius: 10px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 5px rgba(62, 164, 240, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover .skill-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(62, 164, 240, 0.3);
+        }
+
+        .skill-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a00e0, #8e2de2);
+            border-radius: 5px;
+            transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            width: 0;
+        }
+
+        .skill-level {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-color);
+            transform: translateY(6px);
+        }
+
+        .timeline-date {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(62, 164, 240, 0.2);
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
+        .contact-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .cosmic-button {
+            background: linear-gradient(90deg, #4a00e0, #8e2de2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .cosmic-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cosmic-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+            filter: saturate(0.8) hue-rotate(10deg);
+        }
+
+        .floating-1 {
+            top: 10%;
+            left: 5%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-2 {
+            bottom: 15%;
+            right: 5%;
+            animation: float 20s infinite ease-in-out reverse;
+        }
+
+        .floating-3 {
+            top: 40%;
+            right: 10%;
+            animation: float 18s infinite ease-in-out 2s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, -20px) rotate(5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .explorer-title {
+                font-size: 2.5rem;
+            }
+
+            .explorer-description {
+                font-size: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .floating-element {
+                width: 80px;
+                height: 80px;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: -2rem;
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cosmic-explorer {
+                padding: 5rem 1rem 1rem;
+            }
+
+            .timeline-date {
+                font-size: 1rem;
+            }
+
+            .timeline-title {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .home-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="webgl"></canvas>
+    
+    <div class="cosmic-background">
+        <div class="stars"></div>
+    </div>
+    
+    <a href="index.html" class="home-button">
+        <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 12h3v8h14v-8h3L12 2zm0 15c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+        </svg>
+        Back to Home
+    </a>
+
+    <div class="cosmic-explorer">
+        <div class="floating-element floating-1" style="background-image: url('https://cdn-icons-png.flaticon.com/512/3406/3406986.png')"></div>
+        <div class="floating-element floating-2" style="background-image: url('https://cdn-icons-png.flaticon.com/512/3219/3219206.png')"></div>
+        <div class="floating-element floating-3" style="background-image: url('https://cdn-icons-png.flaticon.com/512/3069/3069517.png')"></div>
+        
+        <div class="explorer-header">
+            <h1 class="explorer-title">Cosmic Explorer</h1>
+            <p class="explorer-description">
+                Journey through my digital universe, where code becomes art and creativity takes form.
+                Explore my projects, skills, and professional journey across the cosmic expanse of technology.
+            </p>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="explorer-section">
+            <div class="cosmic-card">
+                <div class="section-header">
+                    <h2 class="section-title">Notable Projects</h2>
+                    <span class="section-subtitle">Recent Works & Explorations</span>
+                </div>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1634176866089-b633f4aec882?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Dashboard Project">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Arnis KC Portfolio</h3>
+                            <p class="project-description">
+                                An interactive dashboard with real-time data visualization and user analytics tracking.
+                                Built with modern frontend technologies and integrating with multiple APIs.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React.js</span>
+                                <span class="tech-tag">Three.js</span>
+                                <span class="tech-tag">TailwindCSS</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="./images/schedule.png" alt="Mobile App">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Schedule Your Week</h3>
+                            <p class="project-description">
+                                An intuitive scheduling platform designed to keep you organized and connected.
+                                Features include user login/signup, personalized schedules, activity alerts, a 
+                                timeline view, and the ability to add friends and view their weekly plans.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React.js</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">Firebase</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?q=80&w=2070&auto=format&fit=crop" alt="AI Project">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Astro AI</h3>
+                            <p class="project-description">
+                                An AI-powered content generation tool with natural language processing capabilities.
+                                Helps users create and optimize content for various platforms and contexts.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">TensorFlow</span>
+                                <span class="tech-tag">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="explorer-section">
+            <div class="cosmic-card">
+                <div class="section-header">
+                    <h2 class="section-title">Technical Skills</h2>
+                    <span class="section-subtitle">Tools & Technologies</span>
+                </div>
+                
+                <div class="button-container">
+                    <button class="cosmic-button toggle-skills">Hide Skills</button>
+                </div>
+                <div class="skills-container" style="display: grid;">
+                    <div class="skill-chart-container">
+                        <canvas id="skillsChart"></canvas>
+                        <div class="chart-overlay"></div>
+                    </div>
+                    
+                    <div class="skill-list">
+                        <div class="skill-item" data-skill="React.js" data-level="90">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js" class="skill-icon">
+                            <h4 class="skill-name">React.js</h4>
+                            <p class="skill-desc">MERN Stack</p>
+                            <div class="skill-level">
+                                <div class="skill-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="REST APIs" data-level="85">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2165/2165004.png" alt="REST APIs" class="skill-icon">
+                            <h4 class="skill-name">REST APIs</h4>
+                            <p class="skill-desc">API Development</p>
+                            <div class="skill-level">
+                                <div class="skill-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="AWS S3" data-level="80">
+                            <img src="https://www.svgrepo.com/show/448270/aws-s3.svg" alt="AWS" class="skill-icon">
+                            <h4 class="skill-name">AWS S3</h4>
+                            <p class="skill-desc">Cloud Storage</p>
+                            <div class="skill-level">
+                                <div class="skill-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="Realtime DB" data-level="85">
+                            <img src="https://cdn-icons-png.flaticon.com/512/4248/4248443.png" alt="Realtime Database" class="skill-icon">
+                            <h4 class="skill-name">Realtime DB</h4>
+                            <p class="skill-desc">Firebase & MongoDB</p>
+                            <div class="skill-level">
+                                <div class="skill-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="SQL" data-level="75">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL" class="skill-icon">
+                            <h4 class="skill-name">SQL</h4>
+                            <p class="skill-desc">Database Management</p>
+                            <div class="skill-level">
+                                <div class="skill-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="C#" data-level="70">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" class="skill-icon">
+                            <h4 class="skill-name">C#</h4>
+                            <p class="skill-desc">Application Development</p>
+                            <div class="skill-level">
+                                <div class="skill-fill" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill=".NET" data-level="75">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET" class="skill-icon">
+                            <h4 class="skill-name">.NET</h4>
+                            <p class="skill-desc">Framework</p>
+                            <div class="skill-level">
+                                <div class="skill-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item" data-skill="UI/UX" data-level="85">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5278/5278575.png" alt="UI/UX" class="skill-icon">
+                            <h4 class="skill-name">UI/UX</h4>
+                            <p class="skill-desc">Design & Prototyping</p>
+                            <div class="skill-level">
+                                <div class="skill-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journey Section -->
+        <div class="explorer-section">
+            <div class="cosmic-card">
+                <div class="section-header">
+                    <h2 class="section-title">Professional Journey</h2>
+                    <span class="section-subtitle">Education & Experience</span>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2025 - Present</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">University of Texas at Arlington</h3>
+                            <p class="timeline-description">
+                                Pursuing a degree in Computer Science with a focus on artificial intelligence and web technologies.
+                                Actively participating in coding competitions and research projects.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023 - 2024</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Tarrant County College</h3>
+                            <p class="timeline-description">
+                                Completed sophomore year with honors. Member of Phi Theta Kappa honor society and Sigma Delta Kappa
+                                English honors society. Focused on developing core programming skills.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2022 - 2023</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Texas Wesleyan University</h3>
+                            <p class="timeline-description">
+                                Began higher education journey as a freshman. Represented the university as a varsity Valorant player,
+                                developing teamwork and strategic thinking skills alongside academic pursuits.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date">2020 - 2022</div>
+                        <div class="timeline-content">
+                            <h3 class="timeline-title">Self-taught Developer</h3>
+                            <p class="timeline-description">
+                                Began journey as a self-taught developer, focusing on web technologies and UI/UX design.
+                                Completed numerous online courses and personal projects to build a solid foundation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="contact-cta">
+            <h2>Interested in collaborating?</h2>
+            <p>Let's create something amazing together.</p>
+            <a href="contact.html" class="cosmic-button">Get In Touch</a>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+    <script>
+        // Create stars for the background
+        const createStars = () => {
+            const starsContainer = document.querySelector('.stars');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size (1-3px)
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                star.style.left = `${posX}%`;
+                star.style.top = `${posY}%`;
+                
+                // Random animation duration
+                const duration = Math.random() * 3 + 2;
+                star.style.setProperty('--duration', `${duration}s`);
+                
+                // Some stars have different colors
+                if (Math.random() > 0.7) {
+                    star.style.backgroundColor = Math.random() > 0.5 ? '#3ea4f0' : '#8a2be2';
+                    star.style.boxShadow = `0 0 ${size * 2}px ${star.style.backgroundColor}`;
+                }
+                
+                starsContainer.appendChild(star);
+            }
+        };
+
+        // Initialize skills chart with error handling
+        const initializeSkillsChart = () => {
+            try {
+                const ctx = document.getElementById('skillsChart').getContext('2d');
+                if (!ctx) {
+                    console.error('Chart context not found');
+                    return;
+                }
+                
+                const skillItems = document.querySelectorAll('.skill-item');
+                if (skillItems.length === 0) {
+                    console.error('No skill items found');
+                    return;
+                }
+                
+                const labels = [];
+                const data = [];
+                const backgroundColors = [];
+                
+                skillItems.forEach(item => {
+                    labels.push(item.dataset.skill);
+                    data.push(parseInt(item.dataset.level));
+                    backgroundColors.push('rgba(138, 43, 226, 0.7)');
+                });
+                
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Skill Level',
+                            data: data,
+                            backgroundColor: 'rgba(138, 43, 226, 0.3)',
+                            borderColor: 'rgba(138, 43, 226, 0.7)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(74, 0, 224, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(138, 43, 226, 1)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            r: {
+                                ticks: {
+                                    display: false,
+                                    backdropColor: 'transparent'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                },
+                                angleLines: {
+                                    color: 'rgba(255, 255, 255, 0.2)',
+                                    lineWidth: 1
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 100,
+                                pointLabels: {
+                                    font: {
+                                        family: "'Poppins', sans-serif",
+                                        size: 12
+                                    },
+                                    color: 'rgba(255, 255, 255, 0.8)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(25, 25, 35, 0.9)',
+                                titleFont: {
+                                    family: "'Poppins', sans-serif",
+                                    size: 14
+                                },
+                                bodyFont: {
+                                    family: "'Poppins', sans-serif",
+                                    size: 12
+                                },
+                                padding: 10,
+                                cornerRadius: 6,
+                                displayColors: false
+                            }
+                        },
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        animation: {
+                            duration: 1500,
+                            easing: 'easeOutQuart'
+                        },
+                        elements: {
+                            line: {
+                                tension: 0.3
+                            }
+                        }
+                    }
+                });
+                console.log('Skills chart initialized successfully');
+            } catch (error) {
+                console.error('Error initializing skills chart:', error);
+            }
+        };
+
+        // Animate on scroll
+        const animateOnScroll = () => {
+            const animateElements = [
+                '.project-card',
+                '.skill-item',
+                '.timeline-item'
+            ];
+            
+            animateElements.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                
+                elements.forEach(element => {
+                    const observer = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                if (selector === '.skill-item') {
+                                    const fill = element.querySelector('.skill-fill');
+                                    setTimeout(() => {
+                                        fill.style.width = element.dataset.level + '%';
+                                    }, 200);
+                                }
+                                element.style.opacity = '1';
+                                element.style.transform = 'translateY(0)';
+                                observer.unobserve(element);
+                            }
+                        });
+                    }, { threshold: 0.2 });
+                    
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    
+                    observer.observe(element);
+                });
+            });
+        };
+
+        // Initialize skills animation immediately without waiting for scroll
+        const initializeSkillsAnimation = () => {
+            try {
+                console.log('Starting skills animation...');
+                const skillItems = document.querySelectorAll('.skill-item');
+                
+                if (!skillItems || skillItems.length === 0) {
+                    console.error('No skill items found for animation');
+                    return;
+                }
+                
+                console.log(`Found ${skillItems.length} skill items to animate`);
+                
+                skillItems.forEach((element, index) => {
+                    const fill = element.querySelector('.skill-fill');
+                    if (!fill) {
+                        console.error(`Skill fill not found for item ${index}`);
+                        return;
+                    }
+                    
+                    // Make sure the item is visible
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                    element.style.visibility = 'visible';
+                    
+                    // Animate the fill with a slight delay for each item
+                    setTimeout(() => {
+                        const level = element.dataset.level || '0';
+                        fill.style.width = level + '%';
+                        console.log(`Animated skill ${element.dataset.skill || index} to ${level}%`);
+                    }, 200 + (index * 50)); // Stagger the animations
+                });
+                
+                console.log('Skills animation initialized successfully');
+            } catch (error) {
+                console.error('Error in skills animation:', error);
+            }
+        };
+
+        // Add toggle functionality for skills
+        const toggleSkillsBtn = document.querySelector('.toggle-skills');
+        const skillsContainer = document.querySelector('.skills-container');
+        
+        if (toggleSkillsBtn && skillsContainer) {
+            toggleSkillsBtn.addEventListener('click', function() {
+                if (skillsContainer.style.display === 'none' || getComputedStyle(skillsContainer).display === 'none') {
+                    console.log('Showing skills container...');
+                    
+                    // First make it visible but with 0 opacity for animation
+                    skillsContainer.style.display = 'grid';
+                    skillsContainer.style.visibility = 'visible';
+                    skillsContainer.style.height = 'auto';
+                    
+                    // Then fade it in
+                    setTimeout(() => {
+                        skillsContainer.style.opacity = '1';
+                    }, 10);
+                    
+                    toggleSkillsBtn.textContent = 'Hide Skills';
+                    console.log('Skills shown');
+                    
+                    // Re-initialize skills and animations with a slight delay
+                    setTimeout(() => {
+                        console.log('Re-initializing skills after toggle...');
+                        initializeSkillsChart();
+                        initializeSkillsAnimation();
+                    }, 100);
+                } else {
+                    console.log('Hiding skills container...');
+                    
+                    // First fade it out
+                    skillsContainer.style.opacity = '0';
+                    
+                    // Then hide it after the transition
+                    setTimeout(() => {
+                        skillsContainer.style.display = 'none';
+                    }, 300); // Match this with your CSS transition time
+                    
+                    toggleSkillsBtn.textContent = 'View Skills';
+                    console.log('Skills hidden');
+                }
+            });
+            console.log('Toggle skills button event listener added');
+        } else {
+            console.error('Toggle skills button or skills container not found');
+        }
+
+        // Initialize everything when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM fully loaded');
+            createStars();
+            
+            // Use a slightly longer delay to ensure all elements are ready
+            setTimeout(() => {
+                try {
+                    console.log('Starting initialization sequence...');
+                    
+                    // Force skills container to be visible first
+                    const skillsContainer = document.querySelector('.skills-container');
+                    if (skillsContainer) {
+                        console.log('Setting up skills container...');
+                        skillsContainer.style.visibility = 'visible';
+                        skillsContainer.style.opacity = '1';
+                        skillsContainer.style.height = 'auto';
+                        skillsContainer.style.display = 'grid';
+                    } else {
+                        console.error('Skills container not found');
+                    }
+                    
+                    // Initialize the skills chart
+                    console.log('Initializing skills chart...');
+                    initializeSkillsChart();
+                    
+                    // Initialize the skills animation
+                    console.log('Initializing skills animation...');
+                    initializeSkillsAnimation();
+                    
+                    // Set up scroll animations
+                    console.log('Setting up scroll animations...');
+                    animateOnScroll();
+                    
+                    console.log('Initialization sequence completed successfully');
+                } catch (error) {
+                    console.error('Error in initialization sequence:', error);
+                }
+            }, 800);
+        });
+    </script>
+</body>
+</html>
