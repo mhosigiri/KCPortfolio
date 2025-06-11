@@ -3,6 +3,8 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import getStarfield from "./src/getStarfield.js";
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 
 //Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -111,6 +113,78 @@ const earthMaterial = new THREE.MeshStandardMaterial({
   emissiveIntensity: 1.1,
 });
 
+//3d Text Geometry
+const geometry = new THREE.BoxGeometry(2,2,2);
+const material = new THREE.MeshStandardMaterial(
+  {
+    color: 0x00ff00
+  }
+)
+const cube = new THREE.Mesh(geometry, material);
+cube.position.z = 1;
+scene.add(cube);
+
+const loader = new FontLoader();
+loader.load('https://threejs.org/examples/fonts/gentilis_bold.typeface.json', function (font) {
+  const text = 'Welcome  to  ArnisKC  portfolio  ';
+  const radius = 4.5;
+  const textGroup = new THREE.Group();
+  
+  // Create each letter separately
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === ' ') continue; // Skip spaces
+    
+    const letterGeometry = new TextGeometry(text[i], {
+      font: font,
+      size: 0.5,
+      height: 0.08,
+      curveSegments: 16,
+      bevelEnabled: true,
+      bevelThickness: 0.02,
+      bevelSize: 0.01,
+      bevelOffset: 0,
+      bevelSegments: 8,
+    });
+    
+    const textMaterial = new THREE.MeshStandardMaterial({
+      color: 0x00aaff,
+      emissive: 0x0066cc,
+      emissiveIntensity: 0.7,
+      transparent: true,
+      opacity: 0.5,
+      roughness: 0.1,
+      metalness: 0.3,
+    });
+    
+    const letterMesh = new THREE.Mesh(letterGeometry, textMaterial);
+    
+    // Calculate angle for each letter
+    const angle = -(i / text.length) * Math.PI * 2;
+    
+    // Position letter around sphere
+    letterMesh.position.x = Math.cos(angle) * radius;
+    letterMesh.position.z = Math.sin(angle) * radius;
+    letterMesh.position.y = 0;
+    
+    // Rotate letter to face outward
+    letterMesh.lookAt(
+      Math.cos(angle) * (radius + 2),
+      0,
+      Math.sin(angle) * (radius + 2)
+      );
+    
+    textGroup.add(letterMesh);
+  }
+  
+  // Add text group to pivot so it rotates with Earth
+  pivot.add(textGroup);
+});
+
+      
+
+
+//Materials
+
 const clouds = new THREE.Mesh(cloudGeometry, cloudMaterial);
 clouds.scale.set(1.01, 1.01, 1.01);
 const earth = new THREE.Mesh(earthGeometry, earthMaterial);
@@ -128,6 +202,11 @@ const sizes = {
 };
 
 // Lighting
+
+const pointLight = new THREE.PointLight(0xffffff, 2, 100);
+  pointLight.position.set(0, 5, 10);
+  scene.add(pointLight);
+
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(ambientLight);
 
@@ -159,6 +238,8 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.domElement.style.width = "100%";
 renderer.domElement.style.height = "100%";
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
 
 // OrbitControls
 const controls = new OrbitControls(camera, canvas);

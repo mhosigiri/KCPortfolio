@@ -92,12 +92,39 @@
             font-weight: bold;
             box-shadow: 0 0 15px rgba(62, 164, 240, 0.5);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
         }
         
         .cosmic-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 0 25px rgba(138, 43, 226, 0.7);
         }
+        
+        /* Consolidated Stats & Highlights */
+        .personal-stats{display:flex;justify-content:center;gap:2rem;margin:2rem 0;flex-wrap:wrap}
+        .stat-item{text-align:center;background:rgba(0,0,0,.3);padding:1rem;border-radius:15px;border:1px solid rgba(62,164,240,.3);min-width:120px}
+        .stat-number{font-size:1.8rem;font-weight:bold;color:#3ea4f0;margin-bottom:.5rem}
+        .stat-label{font-size:.9rem;color:#a5c2eb}
+        .experience-highlights{margin-top:1rem}
+        .highlight-item{background:rgba(62,164,240,.1);border-left:3px solid #3ea4f0;padding:1rem;margin:1rem 0;border-radius:0 10px 10px 0}
+        .highlight-item h4{color:#3ea4f0;margin-bottom:.5rem;font-size:1.1rem}
+        .highlight-item p{color:#e0e0e0;font-size:.95rem}
+        
+        /* Consolidated Timeline Styles */
+        .timeline-item{margin-bottom:3rem;position:relative;opacity:1!important;transform:translateX(0)!important}
+        .timeline-content{background:rgba(0,0,0,.4);backdrop-filter:blur(10px);border-radius:20px;border:1px solid rgba(62,164,240,.3);padding:2rem;margin-left:2rem;position:relative}
+        .timeline-content h2{color:#3ea4f0;font-size:1.8rem;margin-bottom:.5rem}
+        .timeline-date{color:#8a2be2;font-weight:600;margin-bottom:1rem;font-size:1.1rem}
+        .timeline-details p{color:#e0e0e0;margin-bottom:1rem;line-height:1.6}
+        .achievements-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem}
+        .achievement-card{background:rgba(62,164,240,.1);border:1px solid rgba(62,164,240,.3);border-radius:15px;padding:1rem;text-align:center;transition:transform .3s ease}
+        .achievement-card:hover{transform:translateY(-5px);border-color:rgba(62,164,240,.6)}
+        .achievement-icon{font-size:2rem;margin-bottom:.5rem}
+        .achievement-card h3{color:#3ea4f0;font-size:1.1rem;margin-bottom:.5rem}
+        .achievement-card p{color:#a5c2eb;font-size:.9rem}
+        .timeline-image{width:100%;max-width:300px;height:200px;object-fit:cover;border-radius:10px;margin-top:1rem}
     </style>
 </head>
 <body>
@@ -110,7 +137,21 @@
         <div class="cosmic-orbit" style="top: 20%; left: 10%;"></div>
         <div class="cosmic-orbit" style="bottom: 30%; right: 5%;"></div>
         
-        <h1 class="cosmic-title">Texas Journey</h1>
+        <h1 class="cosmic-title">Texas Journey - Anish KC</h1>
+        <div class="personal-stats">
+            <div class="stat-item">
+                <div class="stat-number">3.55</div>
+                <div class="stat-label">Current GPA</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Dec 2026</div>
+                <div class="stat-label">Expected Graduation</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">CS</div>
+                <div class="stat-label">Major</div>
+            </div>
+        </div>
         
         <div class="timeline">
             <!-- Education Timeline -->
@@ -119,11 +160,12 @@
                     <h2>Texas Wesleyan University</h2>
                     <p class="timeline-date">2022 - 2023</p>
                     <div class="timeline-details">
-                        <p>Started my freshman year at Texas Wesleyan University</p>
+                        <p><strong>Bachelor of Science in Computer Science</strong> - GPA: 4.00</p>
+                        <p>Fort Worth, Texas</p>
                         <div class="achievement-card">
-                            <img src="https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd" alt="Valorant" class="timeline-image">
+                            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop" alt="Gaming Setup" class="timeline-image" loading="lazy">
                             <h3>Varsity Valorant Player</h3>
-                            <p>Represented the university as a competitive Valorant player</p>
+                            <p>Represented the university as a competitive Valorant player, developing teamwork and strategic thinking skills</p>
                         </div>
                     </div>
                 </div>
@@ -134,17 +176,17 @@
                     <h2>Tarrant County College</h2>
                     <p class="timeline-date">2023 - 2024</p>
                     <div class="timeline-details">
-                        <p>Continued sophomore year at TCC</p>
+                        <p>Completed sophomore year with honors, focusing on core programming and mathematics</p>
                         <div class="achievements-grid">
                             <div class="achievement-card">
                                 <div class="achievement-icon">🏆</div>
                                 <h3>Phi Theta Kappa</h3>
-                                <p>Member of the Honor Society</p>
+                                <p>International Honor Society - Academic Excellence</p>
                             </div>
                             <div class="achievement-card">
                                 <div class="achievement-icon">📚</div>
                                 <h3>Sigma Delta Kappa</h3>
-                                <p>Member of the English Honors Society</p>
+                                <p>English Honors Society - Writing Excellence</p>
                             </div>
                         </div>
                     </div>
@@ -154,42 +196,138 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <h2>University of Texas at Arlington</h2>
-                    <p class="timeline-date">2025</p>
+                    <p class="timeline-date">2025 - Present</p>
                     <div class="timeline-details">
-                        <p>Starting junior year at UTA</p>
-                        <img src="https://images.unsplash.com/photo-1598755257130-c2aaca1f061c" alt="UTA Campus" class="timeline-image">
-                        <a href="#" class="cosmic-button">Future Journey</a>
+                        <p><strong>Bachelor of Science in Computer Science</strong> - Current GPA: 3.55</p>
+                        <p>Arlington, Texas • Expected Graduation: December 2026</p>
+                        <div class="achievements-grid">
+                            <div class="achievement-card">
+                                <div class="achievement-icon">🎯</div>
+                                <h3>UTAHack Participant</h3>
+                                <p>Competed in university hackathon events</p>
+                            </div>
+                            <div class="achievement-card">
+                                <div class="achievement-icon">💻</div>
+                                <h3>UTA Hackday</h3>
+                                <p>Active participant in coding competitions</p>
+                            </div>
+                            <div class="achievement-card">
+                                <div class="achievement-icon">🏅</div>
+                                <h3>Tau Sigma Honor Society</h3>
+                                <p>Transfer student academic honor society member</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Travel Gallery -->
-            <div class="gallery-section">
+            
+            <!-- Professional Experience Section -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Research Assistant</h2>
+                    <p class="timeline-date">May 2026 - Present</p>
+                    <div class="timeline-details">
+                        <p><strong>UT Arlington Industrial Engineering Department</strong></p>
+                        <div class="experience-highlights">
+                            <div class="highlight-item">
+                                <h4>🚔 De-escalation Training Simulations</h4>
+                                <p>Designed immersive training simulations with branching scenario logic in collaboration with Fort Worth Police Department</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>🤖 AI-Driven Text-to-Speech</h4>
+                                <p>Integrated Google Cloud TTS for contextual instructor prompts and feedback</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>🥽 VR Industrial Simulations</h4>
+                                <p>Developed Unity (C#) VR simulations using XR Interaction Toolkit to assess user efficiency</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>📊 Performance Analysis</h4>
+                                <p>Conducted pilot studies and collected performance data for iterative UX improvements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Externship Experience -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>AI-Powered Workflow Automation Extern</h2>
+                    <p class="timeline-date">May 2026 - July 2026</p>
+                    <div class="timeline-details">
+                        <p><strong>Outamation</strong> - Arlington, Texas</p>
+                        <div class="experience-highlights">
+                            <div class="highlight-item">
+                                <h4>📄 Document Processing Automation</h4>
+                                <p>Developed Python scripts using PyPDF, OpenCV, spaCy to extract structured data from unstructured documents</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>🧠 AI Model Development</h4>
+                                <p>Built and fine-tuned AI models for classification and extraction</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>⚡ Efficiency Improvement</h4>
+                                <p>Reduced task processing time from 7 hours to 5 minutes using AI-integrated workflows</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Previous Experience -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h2>Frontend Developer Intern</h2>
+                    <p class="timeline-date">July 2020 - December 2021</p>
+                    <div class="timeline-details">
+                        <p><strong>Verisk Nepal</strong> - Kathmandu, Nepal</p>
+                        <div class="experience-highlights">
+                            <div class="highlight-item">
+                                <h4>🌐 Responsive UI Development</h4>
+                                <p>Built responsive user interfaces using JavaScript frameworks and CI/CD pipelines</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>🔗 API Integration</h4>
+                                <p>Integrated backend APIs to enable seamless frontend-backend communication</p>
+                            </div>
+                            <div class="highlight-item">
+                                <h4>⚡ Performance Optimization</h4>
+                                <p>Enhanced client-side rendering by 15% through code optimization techniques</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Travel Gallery -->
+        <div class="gallery-section">
                 <h2>Places Explored</h2>
                 <div class="gallery">
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4" alt="San Antonio">
+                        <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?q=80&w=400&auto=format&fit=crop" alt="San Antonio" loading="lazy">
                         <div class="gallery-overlay">
                             <h3>San Antonio</h3>
                             <p>2023</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1570060362230-62bc5605eca2?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Colorado">
+                        <img src="https://images.unsplash.com/photo-1570060362230-62bc5605eca2?q=80&w=400&auto=format&fit=crop" alt="Colorado" loading="lazy">
                         <div class="gallery-overlay">
                             <h3>Colorado</h3>
                             <p>Spring Break 2023</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1535498730771-e735b998cd64" alt="Miami">
+                        <img src="https://images.unsplash.com/photo-1535498730771-e735b998cd64?q=80&w=400&auto=format&fit=crop" alt="Miami" loading="lazy">
                         <div class="gallery-overlay">
                             <h3>Miami, Florida</h3>
                             <p>Summer 2024</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1571893544028-06b07af6dade" alt="New Orleans">
+                        <img src="https://images.unsplash.com/photo-1571893544028-06b07af6dade?q=80&w=400&auto=format&fit=crop" alt="New Orleans" loading="lazy">
                         <div class="gallery-overlay">
                             <h3>New Orleans</h3>
                             <p>Fall 2024</p>
@@ -199,7 +337,7 @@
             </div>
         </div>
         
-        <a href="index.html" class="cosmic-button">Return to Home</a>
+        <a href="../index.html" class="cosmic-button">Return to Home</a>
     </div>
 
     <script type="module" src="main.js"></script>
@@ -208,62 +346,39 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Create cosmic particles
+        // Optimized cosmic particles
         const particlesContainer = document.querySelector('.cosmic-particles');
         const createParticles = () => {
-            for (let i = 0; i < 100; i++) {
+            const fragment = document.createDocumentFragment();
+            const colors = ['#3ea4f0', '#8a2be2', '#ffffff'];
+            for (let i = 0; i < 50; i++) {
                 const particle = document.createElement('div');
-                particle.style.position = 'absolute';
-                particle.style.width = `${Math.random() * 3 + 1}px`;
-                particle.style.height = particle.style.width;
-                particle.style.backgroundColor = i % 3 === 0 ? '#3ea4f0' : i % 3 === 1 ? '#8a2be2' : '#ffffff';
-                particle.style.borderRadius = '50%';
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.opacity = Math.random() * 0.5 + 0.1;
-                particle.style.animation = `twinkle ${Math.random() * 5 + 2}s linear infinite alternate`;
-                particlesContainer.appendChild(particle);
+                const size = Math.random() * 2 + 1;
+                particle.style.cssText = `position:absolute;width:${size}px;height:${size}px;background:${colors[i%3]};border-radius:50%;top:${Math.random()*100}%;left:${Math.random()*100}%;opacity:${Math.random()*.4+.1};animation:twinkle ${Math.random()*3+2}s linear infinite alternate`;
+                fragment.appendChild(particle);
             }
+            particlesContainer.appendChild(fragment);
         };
 
-        // Define the twinkle animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes twinkle {
-                0% { opacity: 0.1; transform: scale(1); }
-                100% { opacity: 0.8; transform: scale(1.5); }
-            }
-        `;
-        document.head.appendChild(style);
+        // Optimized twinkle animation
+        if (!document.getElementById('twinkle-anim')) {
+            const style = document.createElement('style');
+            style.id = 'twinkle-anim';
+            style.textContent = '@keyframes twinkle{0%{opacity:.1;transform:scale(1)}100%{opacity:.6;transform:scale(1.2)}}';
+            document.head.appendChild(style);
+        }
 
         createParticles();
 
-        // Animate timeline items
-        gsap.utils.toArray('.timeline-item').forEach((item, index) => {
-            gsap.from(item, {
-                opacity: 0,
-                x: index % 2 === 0 ? -50 : 50,
-                duration: 1,
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top center+=100',
-                    toggleActions: 'play none none reverse'
-                }
-            });
+        // Optimized animations with reduced triggers
+        ScrollTrigger.batch('.timeline-item', {
+            onEnter: elements => gsap.from(elements, {opacity: 0, x: -30, duration: 0.6, stagger: 0.1}),
+            once: true
         });
-
-        // Animate gallery items
-        gsap.utils.toArray('.gallery-item').forEach((item, i) => {
-            gsap.from(item, {
-                opacity: 0,
-                y: 30,
-                duration: 0.8,
-                delay: i * 0.2,
-                scrollTrigger: {
-                    trigger: '.gallery',
-                    start: 'top center+=100'
-                }
-            });
+        
+        ScrollTrigger.batch('.gallery-item', {
+            onEnter: elements => gsap.from(elements, {opacity: 0, y: 20, duration: 0.5, stagger: 0.05}),
+            once: true
         });
     </script>
 </body>
